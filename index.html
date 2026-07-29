@@ -1,1 +1,87 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Halaman Depan EMT</title>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            overflow: hidden; /* Mencegah scroll pada halaman splash */
+            font-family: Arial, sans-serif;
+        }
 
+        /* Container untuk latar belakang */
+        .splash-container {
+            position: relative;
+            width: 100%;
+            height: 100vh; /* Mengisi seluruh tinggi layar */
+            background-image: url('background.png'); /* Ganti dengan nama file gambar latar belakang kamu */
+            background-size: cover; /* Gambar menutupi seluruh area */
+            background-position: center; /* Gambar diposisikan di tengah */
+            background-repeat: no-repeat;
+            display: flex;
+            justify-content: center;
+            align-items: center; /* Posisikan tombol di tengah secara vertikal */
+        }
+
+        /* Overlay gelap (opsional) untuk meningkatkan kontras */
+        .splash-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.3); /* Overlay hitam transparan */
+            z-index: 1;
+        }
+
+        /* Konten di atas overlay */
+        .splash-content {
+            z-index: 2; /* Di atas overlay */
+            text-align: center;
+        }
+
+        /* Tombol aksi mengambang */
+        .floating-button {
+            display: inline-block;
+            background: none;
+            border: none;
+            cursor: pointer;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            text-decoration: none; /* Hilangkan garis bawah link */
+        }
+
+        /* Gambar logo di dalam tombol */
+        .floating-button img {
+            width: 150px; /* Atur ukuran logo sesuai keinginan */
+            height: auto;
+            border-radius: 50%; /* Membuat logo menjadi lingkaran (jika diinginkan) */
+            box-shadow: 0 10px 20px rgba(0,0,0,0.5); /* Efek bayangan */
+        }
+
+        /* Efek hover pada tombol */
+        .floating-button:hover {
+            transform: translateY(-10px) scale(1.1); /* Sedikit naik dan membesar */
+            box-shadow: 0 15px 30px rgba(0,0,0,0.7); /* Bayangan lebih kuat */
+        }
+    </style>
+</head>
+<body>
+
+    <div class="splash-container">
+        <!-- <div class="splash-overlay"></div> --> <!-- Hapus komentar jika ingin overlay gelap -->
+
+        <div class="splash-content">
+            <!-- Link ke halaman dashboard kamu -->
+            <a href="dashboard.html" class="floating-button">
+                <!-- Gambar logo EMT -->
+                <img src="logo-emt.png" alt="Logo EMT">
+            </a>
+        </div>
+    </div>
+
+</body>
+</html>
