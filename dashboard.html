@@ -3,43 +3,591 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard - Emotion Management Training</title>
+    <title>Dashboard - Emotion Management Training (EMT)</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 20px;
-            background-color: #f4f6f8;
-            color: #333;
+        :root {
+            --primary-emerald: #0b3c26;
+            --secondary-emerald: #145c3a;
+            --accent-gold: #d4af37;
+            --light-gold: #f3e5ab;
+            --bg-light: #f8f9fa;
+            --text-dark: #2c3e50;
+            --text-light: #ffffff;
         }
-        .header {
-            background-color: #0b3c26; /* Warna hijau khas EMT */
-            color: #d4af37; /* Warna emas */
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            background-color: var(--bg-light);
+            color: var(--text-dark);
+            scroll-behavior: smooth;
+        }
+
+        /* Navigation Bar */
+        nav {
+            background-color: var(--primary-emerald);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 20px;
+        }
+
+        .nav-logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--accent-gold);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .nav-links a {
+            color: var(--text-light);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: color 0.3s;
+            padding: 5px 10px;
+        }
+
+        .nav-links a:hover {
+            color: var(--accent-gold);
+        }
+
+        /* Container & Card Style */
+        .container {
+            max-width: 1100px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+
+        .section-title {
+            text-align: center;
+            color: var(--primary-emerald);
+            font-size: 2rem;
+            margin-bottom: 30px;
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            width: 60px;
+            height: 4px;
+            background-color: var(--accent-gold);
+            display: block;
+            margin: 10px auto 0;
+            border-radius: 2px;
+        }
+
+        .card {
+            background: #ffffff;
+            border-radius: 12px;
+            padding: 30px;
+            margin-bottom: 40px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+            border-top: 4px solid var(--accent-gold);
+        }
+
+        /* Section 1: Hero & Logo Filosofi */
+        .hero {
+            text-align: center;
+            padding: 40px 20px;
+            background: linear-gradient(135deg, var(--primary-emerald), var(--secondary-emerald));
+            color: white;
+            border-radius: 12px;
+            margin-bottom: 40px;
+        }
+
+        .hero img {
+            max-width: 200px;
+            height: auto;
+            margin-bottom: 20px;
+        }
+
+        .hero h1 {
+            font-size: 2.2rem;
+            color: var(--accent-gold);
+            margin-bottom: 10px;
+        }
+
+        .hero p.tagline {
+            font-size: 1.2rem;
+            font-style: italic;
+            opacity: 0.9;
+        }
+
+        .philosophy-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 20px;
+            margin-top: 25px;
+        }
+
+        .philosophy-item {
+            background: #fdfdfd;
+            border: 1px solid #e2e8f0;
             padding: 20px;
             border-radius: 8px;
             text-align: center;
         }
-        .content {
+
+        .philosophy-item h4 {
+            color: var(--primary-emerald);
+            margin-bottom: 10px;
+        }
+
+        /* Section 2: Tentang EMT */
+        .nilai-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
             margin-top: 20px;
+        }
+
+        .nilai-card {
+            background: var(--primary-emerald);
+            color: white;
             padding: 20px;
-            background: white;
             border-radius: 8px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+
+        .nilai-card h3 {
+            color: var(--accent-gold);
+            font-size: 1.8rem;
+        }
+
+        .list-check {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .list-check li {
+            position: relative;
+            padding-left: 25px;
+            margin-bottom: 10px;
+        }
+
+        .list-check li::before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: var(--accent-gold);
+            font-weight: bold;
+        }
+
+        /* Section 3: Program Training */
+        .program-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+        }
+
+        .program-card {
+            border: 1px solid #e0e0e0;
+            border-radius: 10px;
+            padding: 20px;
+            transition: transform 0.3s;
+        }
+
+        .program-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 15px rgba(0,0,0,0.1);
+        }
+
+        .program-card h3 {
+            color: var(--primary-emerald);
+            border-bottom: 2px solid var(--accent-gold);
+            padding-bottom: 8px;
+            margin-bottom: 12px;
+        }
+
+        .badge-duration {
+            display: inline-block;
+            background: var(--light-gold);
+            color: #8a6d3b;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+
+        /* Section 4: Event Terdekat & Form */
+        .event-box {
+            background: #fffdf5;
+            border: 2px dashed var(--accent-gold);
+            padding: 25px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+        }
+
+        .event-info {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin: 15px 0;
+            font-weight: 500;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+
+        .form-group input, .form-group select {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            font-size: 1rem;
+        }
+
+        .btn-submit {
+            width: 100%;
+            background-color: var(--primary-emerald);
+            color: var(--accent-gold);
+            padding: 15px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .btn-submit:hover {
+            background-color: var(--secondary-emerald);
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--primary-emerald);
+            color: white;
+            text-align: center;
+            padding: 30px 20px;
+            margin-top: 50px;
+        }
+
+        footer blockquote {
+            font-size: 1.1rem;
+            font-style: italic;
+            color: var(--accent-gold);
+            max-width: 800px;
+            margin: 0 auto 15px;
+        }
+
+        /* Responsif */
+        @media (max-width: 768px) {
+            .nav-container {
+                flex-direction: column;
+                gap: 10px;
+            }
+            .nav-links {
+                justify-content: center;
+            }
         }
     </style>
 </head>
 <body>
 
-    <div class="header">
-        <h1>Selamat Datang di Dashboard EMT</h1>
-        <p>Emotion Management Training</p>
+    <!-- NAVIGASI BRAND -->
+    <nav>
+        <div class="nav-container">
+            <a href="#" class="nav-logo">♾️ EMT PORTAL</a>
+            <ul class="nav-links">
+                <li><a href="#filosofi">Filosofi</a></li>
+                <li><a href="#tentang">Tentang EMT</a></li>
+                <li><a href="#program">Program</a></li>
+                <li><a href="#event">Event & Registrasi</a></li>
+                <li><a href="#ekosistem">Saran Pengembang</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container">
+
+        <!-- HEADER HERO -->
+        <header class="hero">
+            <img src="logo-emt.png" alt="Logo EMT">
+            <h1>EMOTION MANAGEMENT TRAINING (EMT)</h1>
+            <p class="tagline">"Building Calm Teachers, Inspiring Better Classrooms."</p>
+        </header>
+
+        <!-- 1. DESKRIPSI & FILOSOFI LOGO -->
+        <section id="filosofi" class="card">
+            <h2 class="section-title">Filosofi Logo EMT</h2>
+            <p style="text-align: center; max-width: 800px; margin: 0 auto 20px;">
+                Logo Emotion Management Training (EMT) dirancang sebagai representasi perjalanan seorang pendidik menuju keseimbangan emosi, kejernihan berpikir, dan kualitas pembelajaran yang lebih bermakna.
+            </p>
+
+            <div class="philosophy-grid">
+                <div class="philosophy-item">
+                    <h4>♾️ Simbol Infinity</h4>
+                    <p>Melambangkan proses pembelajaran yang tidak pernah berhenti. Pengelolaan emosi adalah perjalanan seumur hidup untuk mencapai keseimbangan antara Pikiran, Emosi, Perilaku, dan Hubungan.</p>
+                </div>
+                <div class="philosophy-item">
+                    <h4>🟢 Warna Emerald</h4>
+                    <p>Melambangkan Pertumbuhan, Healing, Kedamaian, dan Kesadaran.</p>
+                </div>
+                <div class="philosophy-item">
+                    <h4>🟡 Warna Gold</h4>
+                    <p>Melambangkan Kebijaksanaan, Integritas, Profesionalisme, dan Kualitas Premium.</p>
+                </div>
+                <div class="philosophy-item">
+                    <h4>🔤 Huruf EMT</h4>
+                    <p>Huruf yang kokoh menggambarkan karakter guru yang kuat, stabil, namun tetap hangat.</p>
+                </div>
+            </div>
+
+            <div style="background-color: var(--light-gold); padding: 15px; border-radius: 8px; text-align: center; margin-top: 25px; font-weight: bold; color: #5c4700;">
+                Makna Keseluruhan: "Guru yang mampu mengelola dirinya akan mampu mengelola kelasnya."
+            </div>
+        </section>
+
+        <!-- 2. TENTANG EMT -->
+        <section id="tentang" class="card">
+            <h2 class="section-title">Tentang EMT</h2>
+            <p><strong>Emotion Management Training (EMT)</strong> merupakan program pengembangan kompetensi guru yang berfokus pada kemampuan mengenali, mengelola, dan mentransformasikan emosi menjadi energi positif dalam proses pembelajaran.</p>
+            
+            <h4 style="margin-top: 20px; color: var(--primary-emerald);">Pendekatan Multi-Disiplin Ilmu:</h4>
+            <div style="display: flex; flex-wrap: wrap; gap: 10px; margin: 10px 0 25px;">
+                <span style="background: #e8f5e9; color: #1b5e20; padding: 6px 14px; border-radius: 20px; font-size: 0.9rem;">Psikologi Pendidikan</span>
+                <span style="background: #e8f5e9; color: #1b5e20; padding: 6px 14px; border-radius: 20px; font-size: 0.9rem;">Emotional Intelligence</span>
+                <span style="background: #e8f5e9; color: #1b5e20; padding: 6px 14px; border-radius: 20px; font-size: 0.9rem;">Neuroscience</span>
+                <span style="background: #e8f5e9; color: #1b5e20; padding: 6px 14px; border-radius: 20px; font-size: 0.9rem;">Mindfulness</span>
+                <span style="background: #e8f5e9; color: #1b5e20; padding: 6px 14px; border-radius: 20px; font-size: 0.9rem;">Positive Psychology</span>
+                <span style="background: #e8f5e9; color: #1b5e20; padding: 6px 14px; border-radius: 20px; font-size: 0.9rem;">Neuro Programming Training (NPT)</span>
+            </div>
+
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; margin-top: 20px;">
+                <div>
+                    <h3 style="color: var(--primary-emerald); margin-bottom: 10px;">Visi</h3>
+                    <p>Menjadi pusat pengembangan kompetensi emosi guru untuk menciptakan pendidikan yang lebih manusiawi, sehat, dan bermakna.</p>
+                </div>
+                <div>
+                    <h3 style="color: var(--primary-emerald); margin-bottom: 10px;">Misi</h3>
+                    <ul class="list-check">
+                        <li>Membantu guru memahami emosi.</li>
+                        <li>Mengembangkan keterampilan regulasi emosi.</li>
+                        <li>Menciptakan budaya sekolah yang sehat.</li>
+                        <li>Menghadirkan kelas yang aman secara psikologis.</li>
+                        <li>Mengembangkan kesejahteraan guru.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <h3 style="color: var(--primary-emerald); margin-top: 30px; text-align: center;">Nilai Utama EMT</h3>
+            <div class="nilai-grid">
+                <div class="nilai-card">
+                    <h3>E</h3>
+                    <p>Empathy</p>
+                </div>
+                <div class="nilai-card">
+                    <h3>M</h3>
+                    <p>Mindfulness</p>
+                </div>
+                <div class="nilai-card">
+                    <h3>T</h3>
+                    <p>Transformation</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 3. PROGRAM TRAINING -->
+        <section id="program" class="card">
+            <h2 class="section-title">Program Pelatihan</h2>
+            
+            <h3 style="color: var(--primary-emerald); margin-bottom: 15px;">Program Utama</h3>
+            <div class="program-grid">
+                <div class="program-card">
+                    <h3>EMT Basic</h3>
+                    <span class="badge-duration">Durasi: 4 Jam</span>
+                    <ul class="list-check">
+                        <li>Emotional Awareness</li>
+                        <li>Stress Management</li>
+                        <li>Classroom Emotion</li>
+                        <li>Positive Communication</li>
+                    </ul>
+                </div>
+
+                <div class="program-card">
+                    <h3>EMT Intermediate</h3>
+                    <span class="badge-duration">Durasi: 1 Hari</span>
+                    <ul class="list-check">
+                        <li>Emotional Coaching</li>
+                        <li>Difficult Student</li>
+                        <li>Emotional Leadership</li>
+                        <li>Case Study</li>
+                    </ul>
+                </div>
+
+                <div class="program-card">
+                    <h3>EMT Professional</h3>
+                    <span class="badge-duration">Durasi: 2 Hari</span>
+                    <ul class="list-check">
+                        <li>Emotional Intelligence</li>
+                        <li>Neuroscience Learning</li>
+                        <li>NPT Framework</li>
+                        <li>Healing for Educator</li>
+                        <li>Classroom Simulation</li>
+                    </ul>
+                </div>
+            </div>
+
+            <h3 style="color: var(--primary-emerald); margin: 30px 0 15px;">Layanan Khusus & Sertifikasi</h3>
+            <div class="program-grid">
+                <div class="program-card">
+                    <h4>🎓 EMT Master Trainer</h4>
+                    <p>Program sertifikasi resmi khusus trainer EMT.</p>
+                </div>
+                <div class="program-card">
+                    <h4>🏫 Workshop Sekolah</h4>
+                    <p>Pelatihan privat/khusus disesuaikan untuk satu sekolah.</p>
+                </div>
+                <div class="program-card">
+                    <h4>💻 Webinar Nasional</h4>
+                    <p>Pelatihan rutin yang dilaksanakan secara daring.</p>
+                </div>
+                <div class="program-card">
+                    <h4>🤝 Coaching Guru</h4>
+                    <p>Pendampingan personal interaktif secara intensif.</p>
+                </div>
+            </div>
+
+            <h3 style="color: var(--primary-emerald); margin: 30px 0 15px;">Bonus Program</h3>
+            <div class="philosophy-grid">
+                <div class="philosophy-item"><strong>Inner Reset:</strong> Self Healing for Teacher</div>
+                <div class="philosophy-item"><strong>Parenting Emotion:</strong> Khusus Untuk Orang Tua</div>
+                <div class="philosophy-item"><strong>Student Emotion Camp:</strong> Untuk Siswa</div>
+                <div class="philosophy-item"><strong>School Emotional Culture:</strong> Pendampingan Sekolah</div>
+            </div>
+        </section>
+
+        <!-- 4. EVENT TERDEKAT & REGISTRASI -->
+        <section id="event" class="card">
+            <h2 class="section-title">Event Terdekat</h2>
+
+            <div class="event-box">
+                <h2 style="color: var(--primary-emerald);">EMT BASIC</h2>
+                <div class="event-info">
+                    <div>📍 Alhambra Hotel & Convention</div>
+                    <div>🗓 Sabtu, 5 September 2026</div>
+                    <div>⏰ 08.00–12.30 WIB</div>
+                    <div>🎤 Bersama Iman Nurjaman, M.Pd</div>
+                </div>
+
+                <h4 style="margin-top: 15px;">Yang Akan Dipelajari:</h4>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 10px; margin-top: 10px;">
+                    <div>✔ Mengenali Emosi</div>
+                    <div>✔ Mengelola Emosi</div>
+                    <div>✔ Mengendalikan Stress</div>
+                    <div>✔ Bahasa Positif</div>
+                    <div>✔ Emotional Coaching</div>
+                    <div>✔ Self Healing</div>
+                    <div>✔ Teknik Emotional Reset</div>
+                </div>
+
+                <div style="margin-top: 20px; padding-top: 15px; border-top: 1px solid #ddd; display: flex; gap: 20px;">
+                    <div><small>Investasi Normal:</small><br><del>Rp500.000</del></div>
+                    <div style="color: var(--primary-emerald); font-weight: bold;"><small>Early Bird:</small><br><span style="font-size: 1.3rem; color: #c0392b;">Rp250.000</span></div>
+                </div>
+            </div>
+
+            <h3 style="color: var(--primary-emerald); margin-bottom: 20px;">Form Registrasi Peserta</h3>
+            <form onsubmit="alert('Pendaftaran berhasil dikirim!'); return false;">
+                <div class="form-group">
+                    <label>Nama Lengkap & Gelar</label>
+                    <input type="text" placeholder="Masukkan nama lengkap" required>
+                </div>
+                <div class="form-group">
+                    <label>Asal Sekolah / Instansi</label>
+                    <input type="text" placeholder="Nama sekolah" required>
+                </div>
+                <div class="form-group">
+                    <label>Jabatan</label>
+                    <input type="text" placeholder="Contoh: Guru Kelas / Kepala Sekolah" required>
+                </div>
+                <div class="form-group">
+                    <label>Nomor WhatsApp</label>
+                    <input type="tel" placeholder="08xxxxxxxxxx" required>
+                </div>
+                <div class="form-group">
+                    <label>Email</label>
+                    <input type="email" placeholder="alamat@email.com" required>
+                </div>
+                <div class="form-group">
+                    <label>Jumlah Peserta</label>
+                    <input type="number" min="1" value="1" required>
+                </div>
+                <div class="form-group">
+                    <label>Metode Pembayaran</label>
+                    <select required>
+                        <option value="">-- Pilih Pembayaran --</option>
+                        <option value="transfer">Transfer Bank</option>
+                        <option value="qris">QRIS</option>
+                        <option value="va">Virtual Account</option>
+                    </select>
+                </div>
+                <button type="submit" class="btn-submit">DAFTAR SEKARANG</button>
+            </form>
+        </section>
+
+        <!-- SARAN PENGEMBANGAN BRAND -->
+        <section id="ekosistem" class="card" style="background-color: #f0f7f4; border-top-color: var(--primary-emerald);">
+            <h2 class="section-title">💡 Saran Pengembangan Ekosistem Brand EMT</h2>
+            <p style="margin-bottom: 15px;">Agar EMT benar-benar terasa seperti sebuah ekosistem profesional, portal ini dapat terus dikembangkan menjadi website resmi, aplikasi, maupun <strong>Learning Management System (LMS)</strong> di masa depan dengan struktur menu berikut:</p>
+
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 15px;">
+                <div style="background: white; padding: 12px; border-radius: 6px;">🏠 <strong>Home</strong></div>
+                <div style="background: white; padding: 12px; border-radius: 6px;">♾️ <strong>Filosofi Logo</strong></div>
+                <div style="background: white; padding: 12px; border-radius: 6px;">📖 <strong>Tentang EMT</strong></div>
+                <div style="background: white; padding: 12px; border-radius: 6px;">🎓 <strong>Program Training</strong></div>
+                <div style="background: white; padding: 12px; border-radius: 6px;">📅 <strong>Event & Registrasi</strong></div>
+                <div style="background: white; padding: 12px; border-radius: 6px;">📚 <strong>Artikel & Insight</strong></div>
+                <div style="background: white; padding: 12px; border-radius: 6px;">📸 <strong>Galeri Kegiatan</strong></div>
+                <div style="background: white; padding: 12px; border-radius: 6px;">💬 <strong>Testimoni Peserta</strong></div>
+                <div style="background: white; padding: 12px; border-radius: 6px;">🏫 <strong>Kemitraan Sekolah</strong></div>
+                <div style="background: white; padding: 12px; border-radius: 6px;">📞 <strong>Kontak</strong></div>
+            </div>
+        </section>
+
     </div>
 
-    <div class="content">
-        <h2>Menu Utama</h2>
-        <p>Halaman dashboard kamu sudah siap untuk diisi dengan materi, modul, atau fitur pelatihan pengelolaan emosi!</p>
-        <a href="index.html">← Kembali ke Halaman Depan</a>
-    </div>
+    <!-- FOOTER -->
+    <footer>
+        <blockquote>
+            "Guru yang tenang akan melahirkan kelas yang nyaman. Kelas yang nyaman akan melahirkan generasi yang hebat."
+        </blockquote>
+        <p>&copy; 2026 Emotion Management Training (EMT). All Rights Reserved.</p>
+    </footer>
 
 </body>
 </html>
