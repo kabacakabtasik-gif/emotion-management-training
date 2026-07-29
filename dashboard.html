@@ -492,7 +492,6 @@
         </section>
 
         <!-- 4. EVENT TERDEKAT & REGISTRASI -->
-<!-- 4. EVENT TERDEKAT & REGISTRASI -->
         <section id="event" class="card">
             <h2 class="section-title">Event Terdekat</h2>
 
@@ -535,60 +534,66 @@
             </div>
 
             <h3 style="color: var(--primary-emerald); margin-bottom: 20px;">Form Registrasi Peserta</h3>
-            <form onsubmit="alert('Pendaftaran berhasil dikirim! Silakan konfirmasi pembayaran via WhatsApp.'); return false;">
+
+            <form onsubmit="kirimKeWA(event)">
                 <div class="form-group">
-                    <label>Nama Lengkap & Gelar</label>
-                    <input type="text" placeholder="Masukkan nama lengkap" required>
+                    <label for="nama">Nama Lengkap & Gelar</label>
+                    <input type="text" id="nama" placeholder="Masukkan nama lengkap" required>
                 </div>
                 <div class="form-group">
-                    <label>Asal Sekolah / Instansi</label>
-                    <input type="text" placeholder="Nama sekolah" required>
+                    <label for="sekolah">Asal Sekolah / Instansi</label>
+                    <input type="text" id="sekolah" placeholder="Nama sekolah" required>
                 </div>
                 <div class="form-group">
-                    <label>Jabatan</label>
-                    <input type="text" placeholder="Contoh: Guru Kelas / Kepala Sekolah" required>
+                    <label for="jabatan">Jabatan</label>
+                    <input type="text" id="jabatan" placeholder="Contoh: Guru Kelas / Kepala Sekolah" required>
                 </div>
                 <div class="form-group">
-                    <label>Nomor WhatsApp</label>
-                    <input type="tel" placeholder="08xxxxxxxxxx" required>
+                    <label for="wa">Nomor WhatsApp</label>
+                    <input type="tel" id="wa" placeholder="08xxxxxxxxxx" required>
                 </div>
                 <div class="form-group">
-                    <label>Email</label>
-                    <input type="email" placeholder="alamat@email.com" required>
+                    <label for="email">Email</label>
+                    <input type="email" id="email" placeholder="alamat@email.com" required>
                 </div>
                 <div class="form-group">
-                    <label>Jumlah Peserta</label>
-                    <input type="number" min="1" value="1" required>
+                    <label for="jumlah">Jumlah Peserta</label>
+                    <input type="number" id="jumlah" min="1" value="1" required>
                 </div>
                 <div class="form-group">
-                    <label>Metode Pembayaran</label>
-                    <select required>
+                    <label for="pembayaran">Metode Pembayaran</label>
+                    <select id="pembayaran" required>
                         <option value="">-- Pilih Pembayaran --</option>
-                        <option value="transfer">Transfer Bank</option>
-                        <option value="qris">QRIS</option>
-                        <option value="va">Virtual Account</option>
+                        <option value="Transfer Bank">Transfer Bank</option>
+                        <option value="QRIS">QRIS</option>
+                        <option value="Virtual Account">Virtual Account</option>
                     </select>
                 </div>
-                <button type="submit" class="btn-submit">DAFTAR SEKARANG</button>
+                <button type="submit" class="btn-submit">DAFTAR SEKARANG VIA WHATSAPP</button>
             </form>
-        </section>
-        <!-- SARAN PENGEMBANGAN BRAND -->
-        <section id="ekosistem" class="card" style="background-color: #f0f7f4; border-top-color: var(--primary-emerald);">
-            <h2 class="section-title">💡 Saran Pengembangan Ekosistem Brand EMT</h2>
-            <p style="margin-bottom: 15px;">Agar EMT benar-benar terasa seperti sebuah ekosistem profesional, portal ini dapat terus dikembangkan menjadi website resmi, aplikasi, maupun <strong>Learning Management System (LMS)</strong> di masa depan dengan struktur menu berikut:</p>
 
-            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 15px;">
-                <div style="background: white; padding: 12px; border-radius: 6px;">🏠 <strong>Home</strong></div>
-                <div style="background: white; padding: 12px; border-radius: 6px;">♾️ <strong>Filosofi Logo</strong></div>
-                <div style="background: white; padding: 12px; border-radius: 6px;">📖 <strong>Tentang EMT</strong></div>
-                <div style="background: white; padding: 12px; border-radius: 6px;">🎓 <strong>Program Training</strong></div>
-                <div style="background: white; padding: 12px; border-radius: 6px;">📅 <strong>Event & Registrasi</strong></div>
-                <div style="background: white; padding: 12px; border-radius: 6px;">📚 <strong>Artikel & Insight</strong></div>
-                <div style="background: white; padding: 12px; border-radius: 6px;">📸 <strong>Galeri Kegiatan</strong></div>
-                <div style="background: white; padding: 12px; border-radius: 6px;">💬 <strong>Testimoni Peserta</strong></div>
-                <div style="background: white; padding: 12px; border-radius: 6px;">🏫 <strong>Kemitraan Sekolah</strong></div>
-                <div style="background: white; padding: 12px; border-radius: 6px;">📞 <strong>Kontak</strong></div>
-            </div>
+            <script>
+            function kirimKeWA(event) {
+                event.preventDefault();
+
+                const nama = document.getElementById('nama').value;
+                const sekolah = document.getElementById('sekolah').value;
+                const jabatan = document.getElementById('jabatan').value;
+                const wa = document.getElementById('wa').value;
+                const email = document.getElementById('email').value;
+                const jumlah = document.getElementById('jumlah').value;
+                const pembayaran = document.getElementById('pembayaran').value;
+
+                // Nomor WA Tujuan Admin
+                const noAdmin = "6282119279986"; 
+
+                // Format Pesan
+                const pesan = `Halo Admin EMT,%0ANama saya *${nama}* dari *${sekolah}* (${jabatan}).%0A%0ASaya ingin mendaftar *EMT For Teacher* (5 Sept 2026):%0A- Jumlah Peserta: ${jumlah} orang%0A- No. WA: ${wa}%0A- Email: ${email}%0A- Metode Pembayaran: ${pembayaran}%0A%0AMohon instruksi pembayaran selanjutnya. Terima kasih!`;
+
+                // Buka WhatsApp
+                window.open(`https://wa.me/${noAdmin}?text=${pesan}`, '_blank');
+            }
+            </script>
         </section>
 
     </div>
