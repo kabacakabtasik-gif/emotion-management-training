@@ -572,28 +572,39 @@
                 <button type="submit" class="btn-submit">DAFTAR SEKARANG VIA WHATSAPP</button>
             </form>
 
-            <script>
-            function kirimKeWA(event) {
-                event.preventDefault();
+<script>
+function kirimKeWA(event) {
+    event.preventDefault();
 
-                const nama = document.getElementById('nama').value;
-                const sekolah = document.getElementById('sekolah').value;
-                const jabatan = document.getElementById('jabatan').value;
-                const wa = document.getElementById('wa').value;
-                const email = document.getElementById('email').value;
-                const jumlah = document.getElementById('jumlah').value;
-                const pembayaran = document.getElementById('pembayaran').value;
+    // Mengambil nilai input dari form
+    const nama = document.getElementById('nama').value;
+    const sekolah = document.getElementById('sekolah').value;
+    const jabatan = document.getElementById('jabatan').value;
+    const wa = document.getElementById('wa').value;
+    const email = document.getElementById('email').value;
+    const jumlah = document.getElementById('jumlah').value;
+    const pembayaran = document.getElementById('pembayaran').value;
 
-                // Nomor WA Tujuan Admin
-                const noAdmin = "6282119279986"; 
+    // Nomor WA ai Hanifah (Format Internasional tanpa tanda +)
+    const noAdminHanifah = "6289658496343"; 
 
-                // Format Pesan
-                const pesan = `Halo Admin EMT,%0ANama saya *${nama}* dari *${sekolah}* (${jabatan}).%0A%0ASaya ingin mendaftar *EMT For Teacher* (5 Sept 2026):%0A- Jumlah Peserta: ${jumlah} orang%0A- No. WA: ${wa}%0A- Email: ${email}%0A- Metode Pembayaran: ${pembayaran}%0A%0AMohon instruksi pembayaran selanjutnya. Terima kasih!`;
+    // Format teks pesan WhatsApp
+    const teksPesan = `Halo Teh ai Hanifah,%0A` +
+                      `Saya ingin mendaftar Event *EMT For Teacher* (Sabtu, 5 Sept 2026).%0A%0A` +
+                      `*--- Data Pendaftar ---*%0A` +
+                      `👤 *Nama Lengkap:* ${encodeURIComponent(nama)}%0A` +
+                      `🏫 *Instansi/Sekolah:* ${encodeURIComponent(sekolah)}%0A` +
+                      `💼 *Jabatan:* ${encodeURIComponent(jabatan)}%0A` +
+                      `📱 *No. WhatsApp:* ${encodeURIComponent(wa)}%0A` +
+                      `✉️ *Email:* ${encodeURIComponent(email)}%0A` +
+                      `👥 *Jumlah Peserta:* ${encodeURIComponent(jumlah)} orang%0A` +
+                      `💳 *Metode Pembayaran:* ${encodeURIComponent(pembayaran)}%0A%0A` +
+                      `Mohon informasi mengenai prosedur pembayaran dan konfirmasi selanjutnya. Terima kasih!`;
 
-                // Buka WhatsApp
-                window.open(`https://wa.me/${noAdmin}?text=${pesan}`, '_blank');
-            }
-            </script>
+    // Membuka tautan WhatsApp di tab baru
+    window.open(`https://wa.me/${noAdminHanifah}?text=${teksPesan}`, '_blank');
+}
+</script>
         </section>
 
     </div>
